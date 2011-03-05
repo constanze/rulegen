@@ -225,11 +225,11 @@ def testRules(connections, rules, verbose=False):
             filtertConns.insert(c)   
     return filtertConns
 
-def main():
+def rulegen():
     """Set everything off and handle files/stdin etc"""
     # parse command line
 
-    CONFIG_FILENAME = 'generator.cfg'
+    CONFIG_FILENAME = 'rulegen.cfg'
 
     config = ConfigParser.ConfigParser()
     config.read(CONFIG_FILENAME)
@@ -364,4 +364,4 @@ def main():
         sys.exit(2) 
 
 if __name__ == "__main__":
-    main()
+    rulegen()

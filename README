@@ -1,9 +1,9 @@
 WARNING: This is only a prototype! If you feed it with big dumps, it might consume all your memory and never come to an end.
 
 How to use the rulegen:
-python main.py dump
+python rulegen.py dump
 
-You can configure it via the generator.cfg.
+You can configure it via the rulegen.cfg.
 
 You need dpkt and python2.6 or greater, but not python3.x
 
