@@ -1,0 +1,31 @@
+#!python
+################################################################################
+# RULEGEN - A RULE-GENERATOR FOR NETFILTER AND PF.
+################################################################################
+# Distributed under the terms of the GNU General Public License v2
+#
+# Copyright:
+#             (c) 2011 Constanze Hausner
+#             Distributed under the terms of the GNU General Public License v2
+#
+# Author(s):
+#             Constanze Hausner <constanze@gentoo.org>
+#
+
+__version__ = "$Id$"
+
+#===============================================================================
+#
+# Dependencies
+#
+#-------------------------------------------------------------------------------
+
+from rulegen import rulegen
+
+#===============================================================================
+#
+# MAIN
+#
+#-------------------------------------------------------------------------------
+
+rulegen.rulegen()

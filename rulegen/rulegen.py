@@ -229,7 +229,7 @@ def rulegen():
     """Set everything off and handle files/stdin etc"""
     # parse command line
 
-    CONFIG_FILENAME = 'rulegen.cfg'
+    CONFIG_FILENAME = '/etc/rulegen/rulegen.cfg'
 
     config = ConfigParser.ConfigParser()
     config.read(CONFIG_FILENAME)
