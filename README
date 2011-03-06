@@ -5,8 +5,11 @@ python rulegen.py dump
 
 You can configure it via the rulegen.cfg.
 
-You need dpkt and python2.6 or greater, but not python3.x
+You need dpkt [1], ipaddr [2] and python2.6 or greater, but not python3.x
 
 You can feed it with dumps from any network-interface including pflog-dumps.
 
 For a short introduction see http://coupleprogramming.eu/blog/?p=219
+
+[1] http://code.google.com/p/dpkt/
+[2] http://code.google.com/p/ipaddr-py/
