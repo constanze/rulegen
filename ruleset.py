@@ -4,7 +4,7 @@ from ipsmap import IPsMap
 from portsmap import PortsMap
 from port import Port
 from rule import Rule
-from ipadress import IPv4Address, IPv4Network
+from ipaddr import IPv4Address, IPv4Network
 
 class RuleSet(BaseMap):
     """A complete ruleset for pf, based on the analyzed traffic"""

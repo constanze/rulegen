@@ -6,7 +6,7 @@ from optparse import OptionParser
 
 from dpkt.pcap import Reader
 
-from ipadress import IPv4Network
+from ipaddr import IPv4Network
 from ruleset import RuleSet
 from pcapParser import PcapParser
 from ruleGenerator import RuleGenerator

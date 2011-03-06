@@ -25,5 +25,6 @@ class PortscanRule(Rule):
         else:
             portstring2 = self._netfilter_str()
         portstring3 = ("\n%d IP(s) scanned: %d IP(s)" % (len(self.sIPs.elements), len(self.dIPs.elements)) +
-        "\n%s scanned %s" % (str(self.sIPs.elements), str(self.dIPs.elements)))
+        "\n%s scanned %s" % (str(self.sIPs.elements).replace("/32",""), \
+        str(self.dIPs.elements).replace("/32", "")))
         return portstring1 + portstring2 + portstring3

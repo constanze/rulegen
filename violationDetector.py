@@ -1,6 +1,6 @@
 from port import Port
 from ruleset import RuleSet
-from ipadress import IPv4Address, IPv4Network
+from ipaddr import IPv4Address, IPv4Network
 
 class ViolationDetector():
     """

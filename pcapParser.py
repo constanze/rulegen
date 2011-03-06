@@ -1,6 +1,6 @@
 import dpkt
 import socket
-from ipadress import IPv4Address, IPv4Network
+from ipaddr import IPv4Address, IPv4Network
 from port import Port 
 from portsmap import PortsMap 
 from rule import Rule 
@@ -49,6 +49,7 @@ class PcapParser():
         
     def _packetHandler(self, buf, ts):
         """Parse a pcap buffer"""
+        SINGLE_IP_SLASHSIZE = 32
         try:
             if (self.p.datalink() == self.PFLOG_DUMP):
                 #pkt = dpkt.pflog.Pflog(buf)

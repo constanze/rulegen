@@ -1,5 +1,5 @@
 from basemap import BaseMap
-from ipadress import IPv4Address, IPv4Network
+from ipaddr import IPv4Address, IPv4Network
 
 class IPsMap(BaseMap):
     """A map of IPs."""
@@ -20,7 +20,8 @@ class IPsMap(BaseMap):
     def insert(self, item):
         if not self.isAny:
             BaseMap.insert(self, item)   
-        if self.checkForPortscans and isinstance(item, IPv4Address):
+        if self.checkForPortscans and \
+            isinstance(item, IPv4Address):
             self.elements.insert(item)
 
     def extend(self, other):
@@ -42,7 +43,7 @@ class IPsMap(BaseMap):
 
     def doChecks(self, numChecks, numExpand, numAny, slashSize, minIpsForSlash):
         self.ipList = self.values()
-        self.ipList.sort()
+        self._sort_ipList()
         self.makeSlashNetwork(slashSize, minIpsForSlash)
         if len(self) >= numChecks:
             if len(self.ipList) > numAny:
@@ -64,7 +65,7 @@ class IPsMap(BaseMap):
             length = len(otherIPs)
         self.ipList.extend(otherIPs.values())
         self.ipList = list(set(self.ipList))
-        self.ipList.sort() 
+        self._sort_ipList()
         self.makeSlashNetwork(slashSize, 2, length, True)
         if self.isNetworks:
             self._mapToDict()
@@ -104,6 +105,9 @@ class IPsMap(BaseMap):
             if not isinstance(startIp, IPv4Network):
                 network = IPv4Network("%s/%d" % (startIp, slashSize))
                 network = network.masked()
+            elif startIp.prefixlen == 32:
+                network = IPv4Network("%s/%d" % (startIp.ip, slashSize))
+                network = network.masked()
             else:
                 network = startIp
                 #If it is a network already, minIPsPerNet is not relevant
@@ -113,6 +117,9 @@ class IPsMap(BaseMap):
             while(matchingIPsToCurrentNetwork):
                 if not isinstance(ips[i], IPv4Network):
             	    tmpNetwork = IPv4Network("%s/%d" % (ips[i], slashSize))
+                elif ips[i].prefixlen == 32:
+                    tmpNetwork = IPv4Network("%s/%d" % (ips[i].ip, slashSize))
+                    tmpNetwork = network.masked()
                 else:
             	    tmpNetwork = ips[i]
                 if len(ips) == 1: 
@@ -131,6 +138,15 @@ class IPsMap(BaseMap):
         else:
             self.ipList = foundNetworks
             self.isNetworks = True 
+
+    def _sort_ipList(self):
+        for i in range(len(self.ipList)):
+            if not isinstance(self.ipList[i], IPv4Network):
+                self.ipList[i] = IPv4Network(self.ipList[i], 32)
+        self.ipList.sort()
+        for i in range(len(self.ipList)):
+            if (self.ipList[i].prefixlen == 32):
+                self.ipList[i] = IPv4Address(self.ipList[i].ip)
        
     def _expandedNetworkSearch(self, border):
         """This method tries to find a network by
@@ -168,7 +184,18 @@ class IPsMap(BaseMap):
         self.isAny = isAny
 
     def __str__(self):
+        self.ipList = self.values()
+        for i in range(len(self.ipList)):
+            if not isinstance(self.ipList[i], IPv4Network):
+                self.ipList[i] = IPv4Network(self.ipList[i], 32)
+        self._mapToDict()
         out = "any" if self.isAny else BaseMap.__str__(self)
+        out = out.replace("/32", "")
         if len(self) > 1 and not self.isAny:
             out = "{ " + out + " }"
+        self.ipList = self.values()
+        for i in range(len(self.ipList)):
+            if (self.ipList[i].prefixlen == 32):
+                self.ipList[i] = IPv4Address(self.ipList[i].ip)
+        self._mapToDict()
         return out
