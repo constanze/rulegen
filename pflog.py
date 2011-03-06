@@ -13,6 +13,10 @@ class Pflog(dpkt.Packet):
         ('ruleSet', '16s', ''),
         ('ruleNr', 'L', ''),
         ('subRuleNr', 'L', ''),
+        ('uid', 'L', ''),
+        ('pid', 'l', ''),
+        ('ruleuid', 'L', ''),
+        ('rulepid', 'l', ''),
         ('direction', 'B', ''),
         ('padding', '3s', ''),
         )
